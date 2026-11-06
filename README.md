@@ -13,9 +13,11 @@ Note that while the above scripts do not attempt to perform any reconfiguration 
 DO NOT RUN IN PRODUCTION ENVIRONMENTS! 
 
 not_for_production:
-1. alter_vib_acceptance - 
-2. disable_encryption - 
-3. disable_firewall -
-4. evade_logging -
+1. alter_vib_acceptance - change VIB acceptance level to CommunitySupported
+2. disable_encryption - disable encryption
+3. disable_firewall - disable ESX host firewall
+4. evade_logging - disable syslog target and reload logger
+5. drop_vm_by_id - kill VM process given the worldID of the running VM
+6. drop-vm_by-name - kill VM process given the name of the running VM
 
 October 2026
