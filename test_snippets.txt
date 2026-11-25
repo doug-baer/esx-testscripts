@@ -7,6 +7,8 @@ Do not run these on a production or unprotected host.
 
 If you do not know what a command does, do not run it! 
 
+NOTE: Anything enclosed in [] is a parameter that must be provided
+
 ==========================
 
 DEP-05
@@ -25,7 +27,7 @@ APP-03
 
 # /tmp/t.sh
 
-# rm /tmp/t.sh /vmfs/volumes/<ds>/t.sh
+# rm /tmp/t.sh /vmfs/volumes/[datastore]/t.sh
 
 APP-05
 
@@ -55,7 +57,7 @@ ATK-03
 
 # esxcli software acceptance set --level CommunitySupported
 
-# esxcli software acceptance set --level <original level>
+# esxcli software acceptance set --level [original level]
 
 ATK-04
 
@@ -63,7 +65,7 @@ ATK-04
 
 # esxcli network firewall set --enabled false
 
-# esxcli network firewall set --enabled false
+# esxcli network firewall set --enabled true
 
 ATK-05
 
@@ -91,17 +93,17 @@ ATK-08
 
 # vsish -e get /config/Migrate/intOpts/Enabled
 
-# vsish -e set /config/Migrate/intOpts/Enabled <current value> 
+# vsish -e set /config/Migrate/intOpts/Enabled [current value] 
 
 ATK-09
 
 # esxcli vm process list
 
-# esxcli vm process kill -t soft -w <World_ID>
+# esxcli vm process kill -t soft -w [World_ID]
 
-# esxcli vm process kill -t hard -w <World_ID>
+# esxcli vm process kill -t hard -w [World_ID]
 
-# esxcli vm process kill -t force -w <World_ID>
+# esxcli vm process kill -t force -w [World_ID]
 
 # ps | grep vmx
 
@@ -115,7 +117,7 @@ ATK-11
 
 # wget http://example.com -O /tmp/x
 
-# nc <external-ip> 443
+# nc [external-ip] 443
 
 # rm /tmp/x
 
@@ -131,21 +133,21 @@ ATK-12
 
 ATK-13
 
-# mkdir /vmfs/volumes/<datastorename>/hapoc/
+# mkdir /vmfs/volumes/[datastorename]/hapoc/
 
-# vmkfstools -c 10M /vmfs/volumes/<datastorename>/hapoc/dummy.vmdk 
+# vmkfstools -c 10M /vmfs/volumes/[datastorename]/hapoc/dummy.vmdk 
 
-# vmkfstools -U /vmfs/volumes/<datastorename>/hapoc/dummy.vmdk
+# vmkfstools -U /vmfs/volumes/[datastorename]/hapoc/dummy.vmdk
 
 ATK-14
 
 # esxcli system secpolicy domain list
 
-# esxcli system secpolicy domain set -n <choose a domain from the above command’s result> -l disabled 
+# esxcli system secpolicy domain set -n [choose a domain from the above command’s result] -l disabled 
 
 # touch /tardisks/poc
 
-# esxcli system secpolicy domain set -n <domain> -l enforcing
+# esxcli system secpolicy domain set -n [domain] -l enforcing
 
 # rm /tardisks/poc
 
@@ -169,7 +171,7 @@ ATK-16
 
 # vim-cmd vmsvc/getallvms
 
-# vim-cmd vmsvc/power.off <vmid>
+# vim-cmd vmsvc/power.off [vmid]
 
 # esxcli system settings encryption recovery list
 
@@ -185,7 +187,7 @@ VIS-07
 
 ADM-05
 
-# curl -k -H 'Authorization: Bearer <token>' https://<console>/api/v1/alerts/count
+# curl -k -H 'Authorization: Bearer [token]' https://[console]/api/v1/alerts/count
 
 OPS-05
 
